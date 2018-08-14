@@ -6,6 +6,10 @@ use GuzzleHttp\{
     Client, Exception\GuzzleException
 };
 
+/**
+ * Class Request
+ * @package Vinci
+ */
 class Request
 {
 

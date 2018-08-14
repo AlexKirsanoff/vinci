@@ -4,6 +4,10 @@ namespace Vinci;
 
 use GuzzleHttp\Exception\GuzzleException;
 
+/**
+ * Class Vinci
+ * @package Vinci
+ */
 class Vinci
 {
 
