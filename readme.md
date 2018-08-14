@@ -2,23 +2,25 @@
 
 Transform your photos using of neural networks from Vinci
 
-#####Before
+Before:
 
-![before](example/photo.jpg)
+![before](example/photo.jpg =250x)
 
-#####After
+After:
 
-![after](example/after.jpg)
+![after](example/after.jpg =250x)   
 
-Create new object:
+***
+
+Create new object
 
     $vinci = new Vinci();
     
-Get list of filters:
+Get list of filters
 
     $filters = $vinci->filters();
     
-Upload image:
+Upload image
     
     $path = 'image.jpeg';
     $image = file_get_contents($path);
@@ -26,7 +28,7 @@ Upload image:
     $file_id = $vinci->upload($image);
     
     
-Convert image to art:
+Convert image to art
 
     $filter_id = $filters['mystic'];
     
