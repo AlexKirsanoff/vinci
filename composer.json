@@ -1,0 +1,21 @@
+{
+    "name": "alexkirsanoff/vinci",
+    "type": "library",
+    "description": "Simple implementation of vinci api",
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+      "psr-4": {
+        "Vinci\\": "vinci/"
+      }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex",
+            "email": "kirsan0waleksei@yandex.ru"
+        }
+    ]
+}
