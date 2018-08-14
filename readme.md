@@ -12,6 +12,13 @@ After:
 
 ***
 
+Install via composer:
+
+    composer require alexkirsanoff/vinci
+
+
+***
+
 Create new object
 
     $vinci = new Vinci();
