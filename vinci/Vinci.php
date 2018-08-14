@@ -42,7 +42,7 @@ class Vinci
 
         foreach ($data as $value) {
 
-            $name = mb_strtolower((string)$value['name']);
+            $name = strtolower((string)$value['name']);
             $id = (int)$value['id'];
 
             $filters[$name] = $id;
