@@ -26,7 +26,7 @@ class Vinci
      *
      * Returns a list of filters
      *
-     * @return mixed
+     * @return array
      * @throws GuzzleException
      */
     public function filters() {
@@ -51,7 +51,7 @@ class Vinci
      *
      * Upload photo and return file id
      *
-     * @param $content - String containing the image data
+     * @param string $content - String containing the image data
      * @return string - File id
      * @throws GuzzleException
      */
@@ -77,8 +77,8 @@ class Vinci
      *
      * Download art using file id and filter id
      *
-     * @param $fileId - File identifier
-     * @param $filterId - Filter identifier
+     * @param string $fileId - File identifier
+     * @param string|int $filterId - Filter identifier
      * @return string - String containing the image data
      * @throws GuzzleException
      */
