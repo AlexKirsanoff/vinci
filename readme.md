@@ -4,11 +4,11 @@ Transform your photos using of neural networks from Vinci
 
 Before:
 
-![before](example/photo.jpg =250x)
+![before](example/photo.jpg)
 
 After:
 
-![after](example/after.jpg =250x)   
+![after](example/after.jpg)   
 
 ***
 
