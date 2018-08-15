@@ -37,15 +37,9 @@ class Vinci
 
         $response = $this->request->send('list');
 
-        $data = \GuzzleHttp\json_decode($response, true);
         $filters = [];
-
-        foreach ($data as $value) {
-
-            $name = strtolower((string)$value['name']);
-            $id = (int)$value['id'];
-
-            $filters[$name] = $id;
+        foreach (self::decode($response) as $value) {
+            $filters[ strtolower($value['name']) ] = (int)$value['id'];
         }
 
         return $filters;
@@ -61,19 +55,17 @@ class Vinci
      */
     public function upload($content) {
 
-        $response = $this->request->send('preload', [
-            'multipart' => [
-                [
-                    'name' => 'photo',
-                    'filename' => 'photo.jpg',
-                    'contents' => $content
+        return self::decode(
+            $this->request->send('preload', [
+                'multipart' => [
+                    [
+                        'name' => 'photo',
+                        'filename' => 'photo.jpg',
+                        'contents' => $content
+                    ]
                 ]
-            ]
-        ]);
-
-        $fileId = \GuzzleHttp\json_decode($response, true)['preload'];
-
-        return $fileId;
+            ])
+        )['preload'];
 
     }
 
@@ -89,6 +81,20 @@ class Vinci
     public function download($fileId, $filterId) {
 
         return $this->request->send('process/' . $fileId . '/' . $filterId);
+
+    }
+
+    /**
+     *
+     * Json_decode that throws when an error occurs
+     *
+     * @param string $data
+     * @return mixed
+     * @throws \InvalidArgumentException
+     */
+    protected static function decode($data) {
+
+        return \GuzzleHttp\json_decode($data, true);
 
     }
 
