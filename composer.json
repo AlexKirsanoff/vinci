@@ -2,7 +2,7 @@
     "name": "alexkirsanoff/vinci",
     "type": "library",
     "description": "Simple implementation of vinci api",
-    "minimum-stability": "stable",
+    "keywords": ["vinci api", "vinci", "neural", "photo effects", "artistic styles"],
     "require": {
         "php": ">=7.0",
         "guzzlehttp/guzzle": "^6.3"
