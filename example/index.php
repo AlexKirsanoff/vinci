@@ -5,7 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use Vinci\Vinci;
 use GuzzleHttp\Exception\GuzzleException;
 
-$path = __DIR__ . '/photo.jpg';
+$path = __DIR__ . '/../img/photo.jpg';
 
 try {
 
