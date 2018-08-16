@@ -15,15 +15,18 @@ class Vinci
      *
      * Returns a list of filters
      *
-     * @return array
+     * @param bool $fully - Return full data when value is set to true
+     * @return array - Filters
      * @throws GuzzleException
      */
-    public static function filters() {
+    public static function filters($fully = false) {
 
-        $response = Request::send('list');
+        $response = self::decode(Request::send('list'));
+
+        if ($fully) { return $response; }
 
         $filters = [];
-        foreach (self::decode($response) as $value) {
+        foreach ($response as $value) {
             $filters[ strtolower($value['name']) ] = (int)$value['id'];
         }
 
