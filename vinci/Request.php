@@ -3,7 +3,9 @@
 namespace Vinci;
 
 use GuzzleHttp\{
-    Client, Exception\GuzzleException
+    Client,
+    ClientInterface,
+    Exception\GuzzleException
 };
 
 /**
@@ -18,27 +20,7 @@ class Request
     /**
      * @var Client
      */
-    protected $client;
-
-    /**
-     *
-     * Config for guzzle client
-     *
-     * @var array
-     */
-    protected static $config = [];
-
-    /**
-     * Request constructor.
-     */
-    public function __construct()
-    {
-
-        $this->client = new Client(array_merge([
-            'base_uri' => self::API_URL
-        ], self::$config));
-
-    }
+    protected static $client;
 
     /**
      *
@@ -49,24 +31,40 @@ class Request
      * @return string - return body of response
      * @throws GuzzleException
      */
-    public function send(string $uri, array $options = []) {
+    public static function send(string $uri, array $options = []) {
 
-        $response = $this->client->request('POST', $uri, $options);
+        self::loadClient();
 
-        $body = (string)$response->getBody();
+        return (string) (
+            self::$client->request(
+                'POST',
+                self::API_URL . '/' . $uri,
+                $options
+            )->getBody()
+        );
 
-        return $body;
     }
 
     /**
      *
-     * Set custom config for guzzle client
+     * Set guzzle client for sending requests
      *
-     * @param array $config
+     * @param ClientInterface $client
      */
-    public static function setConfig(array $config) {
+    public static function setClient(ClientInterface $client) {
 
-        self::$config = $config;
+        self::$client = $client;
+
+    }
+
+    /**
+     * Load guzzle client
+     */
+    protected static function loadClient() {
+
+        if (!(self::$client instanceof ClientInterface)) {
+            self::setClient(new Client());
+        }
 
     }
 

@@ -12,30 +12,15 @@ class Vinci
 {
 
     /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * Vinci constructor.
-     */
-    public function __construct()
-    {
-
-        $this->request = new Request();
-
-    }
-
-    /**
      *
      * Returns a list of filters
      *
      * @return array
      * @throws GuzzleException
      */
-    public function filters() {
+    public static function filters() {
 
-        $response = $this->request->send('list');
+        $response = Request::send('list');
 
         $filters = [];
         foreach (self::decode($response) as $value) {
@@ -53,10 +38,10 @@ class Vinci
      * @return string - File id
      * @throws GuzzleException
      */
-    public function upload($content) {
+    public static function upload($content) {
 
         return self::decode(
-            $this->request->send('preload', [
+            Request::send('preload', [
                 'multipart' => [
                     [
                         'name' => 'photo',
@@ -78,9 +63,9 @@ class Vinci
      * @return string - String containing the image data
      * @throws GuzzleException
      */
-    public function download($fileId, $filterId) {
+    public static function download($fileId, $filterId) {
 
-        return $this->request->send('process/' . $fileId . '/' . $filterId);
+        return Request::send('process/' . $fileId . '/' . $filterId);
 
     }
 

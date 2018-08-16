@@ -1,5 +1,7 @@
 .gitattributes      export-ignore
 .gitignore          export-ignore
 composer.lock       export-ignore
+readme.md           export-ignore
 /vendor/            export-ignore
 /example/           export-ignore
+/img/               export-ignore

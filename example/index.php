@@ -9,19 +9,17 @@ $path = __DIR__ . '/../img/photo.jpg';
 
 try {
 
-    $vinci = new Vinci();
-
     // get file id
-    $fileId = $vinci->upload(file_get_contents($path));
+    $fileId = Vinci::upload(file_get_contents($path));
 
     // download filters
-    $filters = $vinci->filters();
+    $filters = Vinci::filters();
 
     // then for an example get a random filter id
     $filterId = $filters[array_rand($filters)];
 
     // download art using file id and filter id
-    $image = $vinci->download($fileId, $filterId);
+    $image = Vinci::download($fileId, $filterId);
 
     // display given image
     $image = imagecreatefromstring($image);

@@ -16,30 +16,25 @@ Install via composer:
 
     composer require alexkirsanoff/vinci
 
-
 ***
-
-Create new object
-
-    $vinci = new Vinci();
     
 Get list of filters
 
-    $filters = $vinci->filters();
+    $filters = Vinci::filters();
     
 Get id of filter, for example a mystical filter 
     
     $filterId = $filters['mystic'];
     
-Upload image and get file id
+Upload image for getting file id
     
     $image = file_get_contents(__DIR__ . '/image.jpeg');
-    $fileId = $vinci->upload($image);
+    $fileId = Vinci::upload($image);
     
     
 Convert image to art using file id and filter id
     
-    $art = $vinci->download($fileId, $filterId);
+    $art = Vinci::download($fileId, $filterId);
     
     // display given art
     $art = imagecreatefromstring($art);
