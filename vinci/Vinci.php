@@ -11,22 +11,35 @@ use GuzzleHttp\Exception\GuzzleException;
 class Vinci
 {
 
+
+    /**
+     * @var array
+     */
+    protected static $filters;
+
+
     /**
      *
      * Returns a list of filters
      *
      * @param bool $fully - Return full data when value is set to true
+     * @param bool $refresh
+     *
      * @return array - Filters
      * @throws GuzzleException
      */
-    public static function filters($fully = false) {
+    public static function filters($fully = false, $refresh = false) {
 
-        $response = self::decode(Request::send('list'));
+        if (!is_array(self::$filters) || $refresh) {
+            self::$filters = self::decode(Request::send('list'));
+        }
 
-        if ($fully) { return $response; }
+        if ($fully) {
+            return self::$filters;
+        }
 
         $filters = [];
-        foreach ($response as $value) {
+        foreach (self::$filters as $value) {
             $filters[ strtolower($value['name']) ] = (int)$value['id'];
         }
 
@@ -37,11 +50,11 @@ class Vinci
      *
      * Upload photo and return file id
      *
-     * @param string $content - String containing the image data
+     * @param string $image - String containing the image data
      * @return string - File id
      * @throws GuzzleException
      */
-    public static function upload($content) {
+    public static function upload($image) {
 
         return self::decode(
             Request::send('preload', [
@@ -49,7 +62,7 @@ class Vinci
                     [
                         'name' => 'photo',
                         'filename' => 'photo.jpg',
-                        'contents' => $content
+                        'contents' => $image
                     ]
                 ]
             ])
@@ -63,12 +76,12 @@ class Vinci
      *
      * @param string $fileId - File identifier
      * @param string|int $filterId - Filter identifier
-     * @return string - String containing the image data
+     * @return Image
      * @throws GuzzleException
      */
     public static function download($fileId, $filterId) {
 
-        return Request::send('process/' . $fileId . '/' . $filterId);
+        return new Image( Request::send('process/' . $fileId . '/' . $filterId) );
 
     }
 

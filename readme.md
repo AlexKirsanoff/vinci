@@ -36,7 +36,10 @@ Convert image to art using file id and filter id
     
     $art = Vinci::download($fileId, $filterId);
     
-    // display given art
-    $art = imagecreatefromstring($art);
-    header('Content-type: image/jpeg');
-    imagejpeg($art);
+Display given art
+
+    $art->display();
+    
+You can also save a image, for this use:
+
+    $art->save($path);        
