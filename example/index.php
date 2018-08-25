@@ -2,7 +2,10 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Vinci\Vinci;
+use Vinci\{
+    Vinci,
+    Image
+};
 use GuzzleHttp\Exception\GuzzleException;
 
 const IMAGE_PATH = __DIR__ . '/../img/photo.jpg';
@@ -10,13 +13,14 @@ const IMAGE_PATH = __DIR__ . '/../img/photo.jpg';
 try {
 
     // download filters
-    $filters = Vinci::filters();
+    $filters = Vinci::getFilters();
 
-    // get id of filter, for example a poster filter
-    $filterId = $filters['poster'];
+    // get id of filter, for example a first filter id
+    $filterId = array_shift($filters);
 
     // get file id
-    $fileId = Vinci::upload(file_get_contents(IMAGE_PATH));
+    $image = Image::createFromPath(IMAGE_PATH);
+    $fileId = Vinci::upload($image);
 
     // download art using file id and filter id
     $image = Vinci::download($fileId, $filterId);

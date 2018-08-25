@@ -15,8 +15,6 @@ use GuzzleHttp\{
 class Request
 {
 
-    const API_URL = 'http://vinci.camera';
-
     /**
      * @var Client
      */
@@ -31,18 +29,13 @@ class Request
      * @return string - return body of response
      * @throws GuzzleException
      */
-    public static function send(string $uri, array $options = []) {
+    public static function get(string $uri, array $options = []) {
 
         self::loadClient();
 
-        return (string) (
-            self::$client->request(
-                'POST',
-                self::API_URL . '/' . $uri,
-                $options
-            )->getBody()
-        );
+        $response = self::$client->request('POST', $uri, $options);
 
+        return (string) ($response->getBody());
     }
 
     /**
@@ -58,12 +51,23 @@ class Request
     }
 
     /**
+     *
+     * Set default guzzle client for sending requests
+     *
+     */
+    public static function setDefaultClient() {
+
+        self::setClient(new Client());
+
+    }
+
+    /**
      * Load guzzle client
      */
     protected static function loadClient() {
 
         if (!(self::$client instanceof ClientInterface)) {
-            self::setClient(new Client());
+            self::setDefaultClient();
         }
 
     }

@@ -20,7 +20,7 @@ Install via composer:
     
 Get list of filters
 
-    $filters = Vinci::filters();
+    $filters = Vinci::getFilters();
     
 Get id of filter, for example a mystical filter 
     
@@ -28,7 +28,7 @@ Get id of filter, for example a mystical filter
     
 Upload image for getting file id
     
-    $image = file_get_contents(__DIR__ . '/image.jpeg');
+    $image = Image::createFromUrl('https://example.com/your_image.jpeg');
     $fileId = Vinci::upload($image);
     
     
